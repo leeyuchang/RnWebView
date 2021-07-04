@@ -39,11 +39,11 @@ const propTypes = {
   /**
    * Render left icon
    */
-  leftIcon: PropTypes.oneOfType([PropTypes.element, null]),
-  /**
-   * Render right icon
-   */
-  rightIcon: PropTypes.oneOfType([PropTypes.element, null]),
+  // leftIcon: PropTypes.oneOfType([PropTypes.element, null]),
+  // /**
+  //  * Render right icon
+  //  */
+  // rightIcon: PropTypes.oneOfType([PropTypes.element, null]),
   /**
    * Text color of the placeholder
    */

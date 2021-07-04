@@ -1,0 +1,11 @@
+{
+  "common": {
+    "ok": "確認",
+    "cancel": "取消",
+    "back": "後ろ",
+    "brandName": "ユールパース"
+  },
+  "cartScreen": {
+    "title": "カート"
+  }
+}

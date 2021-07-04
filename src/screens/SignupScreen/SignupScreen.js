@@ -1,33 +1,31 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useState, useContext, useRef} from 'react';
+import {StyleSheet, View, Keyboard} from 'react-native';
 // import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-// import {showMessage} from 'react-native-flash-message';
+// import PropTypes from 'prop-types';
+import {showMessage} from 'react-native-flash-message';
 // import {signUp, resetAuthState} from '../../store/actions';
 import {Button, TextInput, Icon} from '../../components';
 // import {NAVIGATION_TO_LOGIN_SCREEN} from '../../navigation/routes';
 import Status from '../../magento/Status';
 // import {magento} from '../../magento';
 import {ThemeContext} from '../../theme';
-import {translate} from '../../i18n';
+import {translate as t} from '../../i18n';
 import {SPACING, LIMITS} from '../../constants';
-import {isEmailValid, isPasswordValid, isNonEmptyString} from '../../utils';
+import {isEmailValid, isPasswordValid} from '../../utils';
 
 import {WithLocalSvg} from 'react-native-svg';
-import CommerceImage from '../../assets/images/commerce-01.svg';
+import CommerceImage from '../../assets/images/new-commerce-01.svg';
 import {DIMENS} from '../../constants';
 
-const propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    replace: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-const defaultProps = {};
+// const propTypes = {
+//   navigation: PropTypes.shape({
+//     navigate: PropTypes.func.isRequired,
+//     replace: PropTypes.func.isRequired,
+//   }).isRequired,
+// };
 
 // TODO: Check KeyboardAvoidingView behaviour on iOS, on Android it's working fine
-const SignupScreen = ({navigation}) => {
+const SignupScreen = () => {
   const [apiStatus, setApiStatus] = useState('');
   const [form, setValues] = useState({
     email: '',
@@ -70,41 +68,41 @@ const SignupScreen = ({navigation}) => {
     return isValid;
   };
 
-  // const onSignupPress = () => {
-  //   Keyboard.dismiss();
-  //   if (!checkValidation()) {
-  //     return;
-  //   }
-  //   // Api call
-  //   setApiStatus(Status.LOADING);
-  //   const {firstName, lastName, email, password} = form;
-  //   magento.guest
-  //     .signup({
-  //       firstName,
-  //       lastName,
-  //       email,
-  //       password,
-  //     })
-  //     .then(() => {
-  //       setApiStatus(Status.SUCCESS);
-  //     })
-  //     .catch(error => {
-  //       showMessage({
-  //         message: translate('common.error'),
-  //         description: error.message || translate('errors.genericError'),
-  //         type: 'danger',
-  //       });
-  //       setApiStatus(Status.ERROR);
-  //     });
-  // };
+  const onSignupPress = () => {
+    Keyboard.dismiss();
+    if (!checkValidation()) {
+      return;
+    }
+    //   // Api call
+    //   setApiStatus(Status.LOADING);
+    //   const {firstName, lastName, email, password} = form;
+    //   magento.guest
+    //     .signup({
+    //       firstName,
+    //       lastName,
+    //       email,
+    //       password,
+    //     })
+    //     .then(() => {
+    //       setApiStatus(Status.SUCCESS);
+    //     })
+    //     .catch(error => {
+    //       showMessage({
+    //         message: translate('common.error'),
+    //         description: error.message || translate('errors.genericError'),
+    //         type: 'danger',
+    //       });
+    //       setApiStatus(Status.ERROR);
+    //     });
+  };
 
   return (
-    <View>
+    <>
       <View style={styles.imageContainer}>
-        <WithLocalSvg width="100%" height={220} asset={CommerceImage} />
+        <WithLocalSvg width="100%" height={180} asset={CommerceImage} />
       </View>
       <TextInput
-        placeholder={translate('common.email')}
+        placeholder={t('common.email')}
         keyboardType="email-address"
         autoCorrect={false}
         autoCapitalize="none"
@@ -117,13 +115,9 @@ const SignupScreen = ({navigation}) => {
             incorrectEmail: false,
           }))
         }
-        assignRef={component => {
-          emailInputRef.current = component;
-        }}
-        errorMessage={
-          form.incorrectEmail ? translate('errors.invalidEmail') : ''
-        }
-        returnKeyType={translate('common.keyboardNext')}
+        assignRef={component => (emailInputRef.current = component)}
+        errorMessage={form.incorrectEmail ? t('errors.invalidEmail') : ''}
+        returnKeyType={t('common.keyboardNext')}
         onSubmitEditing={() => passwordInputRef.current.focus()}
         onBlur={() => checkField('email', 'incorrectEmail', isEmailValid)}
       />
@@ -141,7 +135,7 @@ const SignupScreen = ({navigation}) => {
           />
         }
         textContentType="password"
-        placeholder={translate('common.password')}
+        placeholder={t('common.password')}
         autoCorrect={false}
         editable={!(apiStatus === Status.LOADING)}
         containerStyle={styles.defaultMargin}
@@ -152,28 +146,31 @@ const SignupScreen = ({navigation}) => {
             incorrectPassword: false,
           }))
         }
-        errorMessage={
-          form.incorrectPassword ? translate('errors.invalidPassword') : ''
-        }
-        assignRef={component => {
-          passwordInputRef.current = component;
-        }}
-        // onSubmitEditing={onSignupPress}
+        errorMessage={form.incorrectPassword ? t('errors.invalidPassword') : ''}
+        assignRef={component => (passwordInputRef.current = component)}
+        onSubmitEditing={onSignupPress}
       />
       <Button
         loading={apiStatus === Status.LOADING}
-        title={translate('common.signup')}
-        // onPress={onSignupPress}
+        title={t('common.signup')}
         style={styles.defaultMargin}
+        onPress={
+          onSignupPress
+          // showMessage({
+          //   message: t('common.success'),
+          //   description: t('signupScreen.signupSuccessMessage'),
+          //   type: 'success',
+          // })
+        }
       />
       <Button
         type="clear"
         style={styles.defaultMargin}
         disabled={apiStatus === Status.LOADING}
-        title={translate('signupScreen.haveAccount')}
+        title={t('signupScreen.haveAccount')}
         // onPress={() => navigation.navigate(NAVIGATION_TO_LOGIN_SCREEN)}
       />
-    </View>
+    </>
   );
 };
 
@@ -181,6 +178,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 0,
   },
   container: {
     padding: SPACING.large,
@@ -193,12 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-SignupScreen.propTypes = propTypes;
-
-SignupScreen.defaultProps = defaultProps;
-
-// export default connect(null, {
-//   signUp,
-//   resetAuthState,
-// })(SignupScreen);
 export default SignupScreen;

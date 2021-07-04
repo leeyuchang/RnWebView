@@ -2,7 +2,7 @@ import * as RNLocalize from 'react-native-localize';
 import i18n from 'i18n-js';
 
 const en = require('./locales/en');
-const es = require('./locales/es');
+const ja = require('./locales/ja');
 
 // Should the app fallback to English if user locale doesn't exists
 i18n.fallbacks = true;
@@ -10,7 +10,7 @@ i18n.fallbacks = true;
 // Define the supported translation
 i18n.translations = {
   en,
-  es,
+  ja,
 };
 
 const fallback = {languageTag: 'en', isRTL: false};

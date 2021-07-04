@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {View, StyleSheet, ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
-// import Spinner from '../Spinner/Spinner';
+import Spinner from '../Spinner/Spinner';
 import TouchReceptor from '../TouchReceptor/TouchReceptor';
 import {ThemeContext} from '../../theme';
 import {DIMENS, SPACING, TYPOGRAPHY} from '../../constants';
@@ -101,14 +101,14 @@ const Button = ({
       onPress={loading || disabled ? () => {} : onPress}
       disabled={loading || disabled}>
       <View style={containerStyle}>
-        {/* {loading && !disabled ? (
+        {loading && !disabled ? (
           <Spinner
             style={styles.loading}
             {...defaultLoadingProps(type, theme)}
           />
-        ) : ( */}
-        <Text style={titleStyle}>{title}</Text>
-        {/* )} */}
+        ) : (
+          <Text style={titleStyle}>{title}</Text>
+        )}
       </View>
     </TouchReceptor>
   );
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
 });
 
-Button.propTypes = propTypes;
+// Button.propTypes = propTypes;
 
 Button.defaultProps = defaultProps;
 

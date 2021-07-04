@@ -1,6 +1,6 @@
 {
   "common": {
-    "brandName": "MageCart",
+    "brandName": "Youlpass",
     "ok": "OK!",
     "cancel": "Cancel",
     "done": "Done",
@@ -57,7 +57,6 @@
   "errors": {
     "genericError": "Something went wrong, please try again!",
     "homeCmsBlockId": "HOME CMS BLOCK ID ERROR",
-    "homeCmsBlockIdMessage": "Please Refer to Step 2 in setup documentation.\n https://github.com/sanjeevyadavit/magento_react_native/wiki/Setup",
     "integrationTokenRequired": "INTEGRATION TOKEN REQUIRED ERROR",
     "integrationTokenRequiredMessage": "Please refer to Step 1 in setup documentation.\n https://github.com/sanjeevyadavit/magento_react_native/wiki/Setup",
     "noResponseFromServer": "No reponse from Server",
